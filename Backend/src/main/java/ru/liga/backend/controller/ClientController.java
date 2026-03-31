@@ -20,8 +20,8 @@ public class ClientController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ClientResponse createClient(@RequestBody @Valid ClientCreateRequest request) {
-        return clientService.createClient(request);
+    public ClientResponse createClient(@RequestBody @Valid ClientCreateRequest request) { // @Valid triggers DTO validation
+        return clientService.createClient(request); // the result is serialized back to JSON
     }
 
     @GetMapping

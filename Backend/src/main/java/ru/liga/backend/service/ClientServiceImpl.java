@@ -25,12 +25,12 @@ public class ClientServiceImpl implements ClientService {
     @Override
     @Transactional
     public ClientResponse createClient(ClientCreateRequest request) {
-        OffsetDateTime now = OffsetDateTime.now();
+        OffsetDateTime now = OffsetDateTime.now(); // When creating, we set temporary fields
 
         Client client = Client.builder()
                 .fullName(request.getFullName())
                 .gender(request.getGender())
-                .status(ClientStatus.ACTIVE)
+                .status(ClientStatus.ACTIVE) // Active default
                 .createDttm(now)
                 .modifyDttm(now)
                 .build();
@@ -49,7 +49,7 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public ClientResponse getClientById(Long id) {
-        Client client = clientRepository.findById(id)
+        Client client = clientRepository.findById(id) // returns optional
                 .orElseThrow(() -> new ClientNotFoundException("Клиент с id=" + id + " не найден"));
 
         return mapToResponse(client);
