@@ -2,6 +2,7 @@ package ru.liga.backend.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -18,7 +19,6 @@ public class GlobalExceptionHandler {
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, ex.getMessage());
         problemDetail.setTitle("Client not found");
         problemDetail.setProperty("timestamp", OffsetDateTime.now());
-
         return problemDetail;
     }
 
@@ -34,6 +34,18 @@ public class GlobalExceptionHandler {
                 .forEach(error -> errors.put(error.getField(), error.getDefaultMessage()));
 
         problemDetail.setProperty("errors", errors);
+        return problemDetail;
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ProblemDetail handleHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
+        ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.BAD_REQUEST);
+        problemDetail.setTitle("Invalid request body");
+        problemDetail.setDetail("Request body contains invalid JSON or unsupported enum value");
+        problemDetail.setProperty("timestamp", OffsetDateTime.now());
+
+        Throwable cause = ex.getMostSpecificCause();
+        problemDetail.setProperty("error", cause.getMessage());
 
         return problemDetail;
     }
@@ -44,7 +56,6 @@ public class GlobalExceptionHandler {
         problemDetail.setTitle("Internal server error");
         problemDetail.setDetail(ex.getMessage());
         problemDetail.setProperty("timestamp", OffsetDateTime.now());
-
         return problemDetail;
     }
 }

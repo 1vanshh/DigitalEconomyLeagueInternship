@@ -221,4 +221,41 @@ class ClientControllerTest {
                 .andExpect(jsonPath("$.title").value("Client not found"))
                 .andExpect(jsonPath("$.detail").value("Клиент с id=99 не найден"));
     }
+
+    @Test
+    @DisplayName("PUT /api/clients/{id} должен возвращать 400 при некорректном значении status")
+    void shouldReturnBadRequestWhenStatusEnumIsInvalid() throws Exception {
+        String requestBody = """
+            {
+              "status": "BLOCKED"
+            }
+            """;
+
+        mockMvc.perform(put("/api/clients/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestBody))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.title").value("Invalid request body"))
+                .andExpect(jsonPath("$.detail").value("Request body contains invalid JSON or unsupported enum value"))
+                .andExpect(jsonPath("$.error").exists());
+    }
+
+    @Test
+    @DisplayName("POST /api/clients должен возвращать 400 при некорректном значении gender")
+    void shouldReturnBadRequestWhenGenderEnumIsInvalid() throws Exception {
+        String requestBody = """
+            {
+              "fullName": "Иван Иванов",
+              "gender": "X"
+            }
+            """;
+
+        mockMvc.perform(post("/api/clients")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestBody))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.title").value("Invalid request body"))
+                .andExpect(jsonPath("$.detail").value("Request body contains invalid JSON or unsupported enum value"))
+                .andExpect(jsonPath("$.error").exists());
+    }
 }
