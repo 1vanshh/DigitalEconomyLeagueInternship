@@ -1,0 +1,7 @@
+POST http://localhost:8080/api/clients
+Content-Type: application/json
+
+{
+  "fullName": "Иван Иванов",
+  "gender": "M"
+}
