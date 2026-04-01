@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
 import ru.liga.backend.entity.Client;
-import ru.liga.backend.entity.ClientStatus;
-import ru.liga.backend.entity.Gender;
+import ru.liga.backend.enums.ClientStatus;
+import ru.liga.backend.enums.Gender;
 
 import java.time.OffsetDateTime;
 import java.util.List;

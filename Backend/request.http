@@ -9,7 +9,7 @@ POST {{host}}/api/clients
 Content-Type: {{contentType}}
 
 {
-  "fullName": "Иван Иванов",
+  "fullName": "Глеб Птеров",
   "gender": "M"
 }
 
@@ -58,7 +58,7 @@ GET {{host}}/api/clients
 
 ### Получить клиента по id = 1
 ### Ожидаем: 200 OK, если клиент существует
-GET {{host}}/api/clients/8
+GET {{host}}/api/clients/111
 
 ### Получить клиента по несуществующему id
 ### Ожидаем: 404 Not Found
@@ -81,7 +81,7 @@ PUT {{host}}/api/clients/8
 Content-Type: {{contentType}}
 
 {
-  "fullName": "Иван Сидоров"
+  "fullName": "Иван Воронеж"
 }
 
 ### Обновление несуществующего клиента
@@ -106,7 +106,7 @@ Content-Type: {{contentType}}
 
 ### Удаление клиента по id = 1
 ### Ожидаем: 204 No Content
-DELETE {{host}}/api/clients/7
+DELETE {{host}}/api/clients/9
 
 ### Повторное удаление того же клиента
 ### Ожидаем: 404 Not Found
@@ -115,3 +115,9 @@ DELETE {{host}}/api/clients/1
 ### Удаление несуществующего клиента
 ### Ожидаем: 404 Not Found
 DELETE {{host}}/api/clients/99999
+
+###
+GET {{host}}/api/clients/active
+
+###
+GET {{host}}/api/clients/active/count

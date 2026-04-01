@@ -2,8 +2,8 @@ package ru.liga.backend.dto.response;
 
 import lombok.Builder;
 import lombok.Getter;
-import ru.liga.backend.entity.ClientStatus;
-import ru.liga.backend.entity.Gender;
+import ru.liga.backend.enums.ClientStatus;
+import ru.liga.backend.enums.Gender;
 
 import java.time.OffsetDateTime;
 

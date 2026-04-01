@@ -16,5 +16,9 @@ public interface ClientService {
 
     ClientResponse updateClient(Long id, ClientUpdateRequest request);
 
+    List<ClientResponse> getAllActiveClients();
+
+    long countActiveClients();
+
     void deleteClient(Long id);
 }

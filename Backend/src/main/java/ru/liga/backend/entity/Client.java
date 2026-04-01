@@ -2,6 +2,8 @@ package ru.liga.backend.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import ru.liga.backend.enums.ClientStatus;
+import ru.liga.backend.enums.Gender;
 
 import java.time.OffsetDateTime;
 

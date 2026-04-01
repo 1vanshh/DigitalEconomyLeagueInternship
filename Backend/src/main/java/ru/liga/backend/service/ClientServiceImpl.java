@@ -7,10 +7,9 @@ import ru.liga.backend.dto.request.ClientCreateRequest;
 import ru.liga.backend.dto.request.ClientUpdateRequest;
 import ru.liga.backend.dto.response.ClientResponse;
 import ru.liga.backend.entity.Client;
-import ru.liga.backend.entity.ClientStatus;
+import ru.liga.backend.enums.ClientStatus;
 import ru.liga.backend.exception.ClientNotFoundException;
 import ru.liga.backend.repository.ClientRepository;
-import ru.liga.backend.service.ClientService;
 
 import java.time.OffsetDateTime;
 import java.util.List;
@@ -23,7 +22,7 @@ public class ClientServiceImpl implements ClientService {
     private final ClientRepository clientRepository;
 
     @Override
-    @Transactional
+    // add @Transactional when we need it
     public ClientResponse createClient(ClientCreateRequest request) {
         OffsetDateTime now = OffsetDateTime.now(); // When creating, we set temporary fields
 
@@ -56,7 +55,6 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    @Transactional
     public ClientResponse updateClient(Long id, ClientUpdateRequest request) {
         Client client = clientRepository.findById(id)
                 .orElseThrow(() -> new ClientNotFoundException("Клиент с id=" + id + " не найден"));
@@ -80,12 +78,28 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    @Transactional
     public void deleteClient(Long id) {
         Client client = clientRepository.findById(id)
                 .orElseThrow(() -> new ClientNotFoundException("Клиент с id=" + id + " не найден"));
 
         clientRepository.delete(client);
+    }
+
+    @Override
+    public List<ClientResponse> getAllActiveClients() {
+        return clientRepository.findAll()
+                .stream()
+                .filter(client -> client.getStatus() == ClientStatus.ACTIVE)
+                .map(this::mapToResponse)
+                .toList();
+    }
+
+    @Override
+    public long countActiveClients() {
+        return clientRepository.findAll()
+                .stream()
+                .filter(client -> client.getStatus() == ClientStatus.ACTIVE)
+                .count();
     }
 
     private ClientResponse mapToResponse(Client client) {

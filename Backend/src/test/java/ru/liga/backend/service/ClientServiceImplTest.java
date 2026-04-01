@@ -10,8 +10,8 @@ import ru.liga.backend.dto.request.ClientCreateRequest;
 import ru.liga.backend.dto.request.ClientUpdateRequest;
 import ru.liga.backend.dto.response.ClientResponse;
 import ru.liga.backend.entity.Client;
-import ru.liga.backend.entity.ClientStatus;
-import ru.liga.backend.entity.Gender;
+import ru.liga.backend.enums.ClientStatus;
+import ru.liga.backend.enums.Gender;
 import ru.liga.backend.exception.ClientNotFoundException;
 import ru.liga.backend.repository.ClientRepository;
 

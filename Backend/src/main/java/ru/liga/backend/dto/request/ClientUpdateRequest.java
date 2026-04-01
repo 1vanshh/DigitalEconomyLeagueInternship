@@ -3,8 +3,8 @@ package ru.liga.backend.dto.request;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
-import ru.liga.backend.entity.ClientStatus;
-import ru.liga.backend.entity.Gender;
+import ru.liga.backend.enums.ClientStatus;
+import ru.liga.backend.enums.Gender;
 
 @Getter
 @Setter

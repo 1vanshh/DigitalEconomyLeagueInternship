@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.liga.backend.dto.request.ClientCreateRequest;
 import ru.liga.backend.dto.request.ClientUpdateRequest;
 import ru.liga.backend.dto.response.ClientResponse;
+import ru.liga.backend.enums.Gender;
 import ru.liga.backend.service.ClientService;
 
 import java.util.List;
@@ -47,5 +48,17 @@ public class ClientController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteClient(@PathVariable Long id) {
         clientService.deleteClient(id);
+    }
+
+    @GetMapping("/active")
+    @ResponseStatus(HttpStatus.OK)
+    public List<ClientResponse> getAllActiveClients() {
+        return clientService.getAllActiveClients();
+    }
+
+    @GetMapping("/active/count")
+    @ResponseStatus(HttpStatus.OK)
+    public long countAllActiveClients() {
+        return clientService.countActiveClients();
     }
 }
